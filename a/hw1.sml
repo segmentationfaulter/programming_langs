@@ -21,3 +21,15 @@ fun is_older (date1: (int * int * int), date2: (int * int * int)) =
     then false
     else false
   end
+
+fun number_in_month (dates: (int * int * int) list, month: int) =
+  let
+    fun number_in_month_for_single_date (date: (int * int * int)) =
+      if #2 date = month
+      then 1
+      else 0
+  in
+    if null dates
+    then 0
+    else number_in_month_for_single_date(hd dates) + number_in_month(tl dates, month)
+  end
