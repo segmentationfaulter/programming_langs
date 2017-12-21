@@ -33,3 +33,23 @@ fun number_in_month (dates: (int * int * int) list, month: int) =
     then 0
     else number_in_month_for_single_date(hd dates) + number_in_month(tl dates, month)
   end
+
+fun number_in_months (dates: (int * int * int) list, months: int list) =
+  if null months
+  then 0
+  else number_in_month(dates, hd months) + number_in_months(dates, tl months)
+
+fun dates_in_month (dates: (int * int * int) list, month: int) =
+  let
+    fun date_in_month (date: (int * int * int)) =
+      if #2 date = month
+      then true
+      else false
+  in
+    if null dates
+    then []
+    else
+      if date_in_month(hd dates)
+      then (hd dates) :: dates_in_month(tl dates, month)
+      else dates_in_month(tl dates, month) 
+  end
