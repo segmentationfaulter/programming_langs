@@ -41,3 +41,7 @@ val dates_in_months_test3 = dates_in_months (dates, [3]) = [(2000, 3, 30), (2000
 val dates_in_months_test4 = dates_in_months (dates, [3, 6]) = [(2000, 3, 30), (2000, 3, 31), (2000, 6, 15)]
 val dates_in_months_test5 = dates_in_months ([], [3]) = []
 val dates_in_months_test6 = dates_in_months ([], []) = []
+
+val strings = ["hi", "there", "how", "are", "you"]
+val get_nth_test1 = get_nth (strings, 2) = "there"
+val get_nth_test2 = get_nth (strings, 5) = "you"

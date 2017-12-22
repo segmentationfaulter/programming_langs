@@ -58,3 +58,13 @@ fun dates_in_months (dates: (int * int * int) list, months: int list) =
   if null months
   then []
   else dates_in_month(dates, hd months) @ dates_in_months(dates, tl months)
+
+fun get_nth(strings: string list, n: int) =
+  let
+    fun get_nth_helper(strings: string list, current_n: int) =
+      if (n = current_n)
+      then hd strings
+      else get_nth_helper(tl strings, current_n + 1)
+  in
+    get_nth_helper(strings, 1)
+  end
