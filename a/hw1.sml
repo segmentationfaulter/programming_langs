@@ -75,3 +75,17 @@ fun date_to_string (date: int * int * int) =
   in
     get_nth(months, #2 date) ^ " " ^ Int.toString(#3 date) ^ "," ^ " " ^ Int.toString(#1 date)
   end
+
+fun number_before_reaching_sum (sum: int, numbers: int list) =
+  let
+    fun helper (numbers: int list, last_head: int, last_sum: int) =
+      let
+        val calculated_sum = last_sum + hd numbers
+      in
+        if calculated_sum >= sum
+        then last_head
+        else helper(tl numbers, hd numbers, calculated_sum)
+      end
+  in
+    helper (numbers, hd numbers, 0)
+  end
