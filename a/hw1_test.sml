@@ -45,3 +45,6 @@ val dates_in_months_test6 = dates_in_months ([], []) = []
 val strings = ["hi", "there", "how", "are", "you"]
 val get_nth_test1 = get_nth (strings, 2) = "there"
 val get_nth_test2 = get_nth (strings, 5) = "you"
+
+val date_to_string_test1 = date_to_string (2013, 6, 1) = "June 1, 2013"
+val date_to_string_test2 = date_to_string (2013, 11, 11) = "November 11, 2013"
