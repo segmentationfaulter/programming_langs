@@ -55,3 +55,7 @@ val number_before_reaching_sum_test2 = number_before_reaching_sum (18, [7, 9, 3,
 val what_month_test1 = what_month 70 = 3
 val what_month_test2 = what_month 20 = 1
 val what_month_test3 = what_month 360 = 12
+
+val oldest_test1 = oldest([(2012,2,28),(2011,3,31),(2011,4,28)]) = SOME (2011,3,31)
+val oldest_test2 = oldest([]) = NONE
+val oldest_test3 = oldest([(2012, 3, 23)]) = SOME (2012, 3, 23)

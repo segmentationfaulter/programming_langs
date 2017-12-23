@@ -93,3 +93,19 @@ fun what_month(day: int) =
   in
     month + 1
   end
+
+fun oldest (dates: (int * int * int) list) =
+  let
+    fun is_older_than_list_of_dates (date: (int * int * int), dates_to_compare_with: (int * int * int) list) =
+      if null dates_to_compare_with
+      then true
+      else if is_older(date, hd dates_to_compare_with)
+      then is_older_than_list_of_dates(date, tl dates_to_compare_with)
+      else false
+  in
+    if null dates
+    then NONE
+    else if is_older_than_list_of_dates(hd dates, tl dates)
+    then SOME (hd dates)
+    else oldest(tl dates)
+  end
