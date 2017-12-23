@@ -50,4 +50,8 @@ val date_to_string_test1 = date_to_string (2013, 6, 1) = "June 1, 2013"
 val date_to_string_test2 = date_to_string (2013, 11, 11) = "November 11, 2013"
 
 val number_before_reaching_sum_test1 = number_before_reaching_sum (10, [1,2,3,4,5]) = 3
-val number_before_reaching_sum_test2 = number_before_reaching_sum (10, [8, 5]) = 8
+val number_before_reaching_sum_test2 = number_before_reaching_sum (18, [7, 9, 3, 8]) = 2
+
+val what_month_test1 = what_month 70 = 3
+val what_month_test2 = what_month 20 = 1
+val what_month_test3 = what_month 360 = 12
