@@ -23,6 +23,13 @@ fun all_except_option (needle, haystack) =
     | haystack_head::haystack_tail => aux(haystack_head, haystack_tail, [])
   end
 
+fun get_substitutions1 (substitutions, s) =
+  case substitutions of
+    [] => []
+  | head_list::substitutions' => case all_except_option(s, head_list) of
+                                   NONE => get_substitutions1(substitutions', s)
+                                 | SOME string_list => string_list @ get_substitutions1(substitutions', s)
+
 (* you may assume that Num is always used with values 2, 3, ..., 10
    though it will not really come up *)
 datatype suit = Clubs | Diamonds | Hearts | Spades

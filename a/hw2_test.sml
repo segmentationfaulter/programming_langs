@@ -10,9 +10,12 @@ val all_except_option_test2 = all_except_option ("cat", ["apple", "boat", "cat",
 val all_except_option_test3 = all_except_option ("string", []) = NONE
 val all_except_option_test4 = all_except_option ("string", ["abc"]) = NONE
 
-(*
-val test2 = get_substitutions1 ([["foo"],["there"]], "foo") = []
+val get_substitutions1_test1 = get_substitutions1 ([["foo"],["there"]], "foo") = []
+val get_substitutions1_test2 = get_substitutions1 ([["Fred", "Fredrick"],["Jeff", "Jeffrey"], ["Geoff", "Jeff", "Jeffrey"]], "Jeff") = ["Jeffrey", "Geoff", "Jeffrey"]
+val get_substitutions1_test3 = get_substitutions1 ([["Fred", "Fredrick"],["Elizabeth", "Betty"], ["Freddie", "Fred", "F"]], "Fred") = ["Fredrick", "Freddie", "F"]
+val get_substitutions1_test4 = get_substitutions1 ([], "foo") = []
 
+(*
 val test3 = get_substitutions2 ([["foo"],["there"]], "foo") = []
 
 val test4 = similar_names ([["Fred","Fredrick"],["Elizabeth","Betty"],["Freddie","Fred","F"]], {first="Fred", middle="W", last="Smith"}) =
