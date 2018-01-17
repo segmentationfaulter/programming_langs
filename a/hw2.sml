@@ -97,3 +97,13 @@ fun all_same_color (cards) =
     [] => true
   | card::[] => true
   | cards_head::cards_neck::cards' => if (card_color(cards_head) = card_color(cards_neck)) then all_same_color(cards_neck::cards') else false
+
+fun sum_cards (cards) =
+  let
+    fun aux (cards, sum) =
+      case cards of
+        [] => sum
+      | card::cards' => aux(cards', sum + card_value card)
+  in
+    aux (cards, 0)
+  end

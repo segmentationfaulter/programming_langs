@@ -43,9 +43,13 @@ val all_same_color_test2 = all_same_color [(Hearts, Ace), (Diamonds, Ace)] = tru
 val all_same_color_test3 = all_same_color [(Hearts, Ace), (Diamonds, Ace), (Clubs, King)] = false
 val all_same_color_test4 = all_same_color [(Spades, Ace), (Clubs, Queen), (Clubs, King)] = true
 
+val sum_cards_test1 = sum_cards [(Clubs, Num 2),(Clubs, Num 2)] = 4
+val sum_cards_test2 = sum_cards [] = 0
+val sum_cards_test3 = sum_cards [(Clubs, Num 5),(Clubs, King)] = 15 
+val sum_cards_test4 = sum_cards [(Clubs, Num 5),(Clubs, King), (Hearts, Jack), (Spades, Ace), (Spades, Num 2)] = 38 
+
 (*
 
-val test9 = sum_cards [(Clubs, Num 2),(Clubs, Num 2)] = 4
 
 val test10 = score ([(Hearts, Num 2),(Clubs, Num 4)],10) = 4
 
