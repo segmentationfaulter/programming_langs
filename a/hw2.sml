@@ -77,3 +77,17 @@ fun card_value (_, rank) =
     Num value => value
   | Ace => 11
   | _ => 10
+
+fun remove_card (cs, c, e) =
+  let
+    fun aux (cs, acc) =
+      case cs of
+        [] => acc
+      | hd::cs' => if (hd = c) then acc @ cs' else aux(cs', acc @ [hd])
+
+    val answer = aux(cs, [])
+  in
+    if answer = cs
+    then raise e
+    else answer
+  end
