@@ -91,3 +91,9 @@ fun remove_card (cs, c, e) =
     then raise e
     else answer
   end
+
+fun all_same_color (cards) =
+  case cards of
+    [] => true
+  | card::[] => true
+  | cards_head::cards_neck::cards' => if (card_color(cards_head) = card_color(cards_neck)) then all_same_color(cards_neck::cards') else false
