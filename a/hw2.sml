@@ -9,26 +9,28 @@ fun same_string(s1 : string, s2 : string) =
 (* put your solutions for problem 1 here *)
 
 fun all_except_option (needle, haystack) =
-  case haystack of
-    [] => NONE
-  | head::rest_of_haystack => let fun aux (head: string, rest_of_haystack: string list, acc: string list) =
-                         if same_string(head, needle)
-                         then SOME (acc @ rest_of_haystack)
-                         else case rest_of_haystack of
-                                [] => NONE
-                              | x :: rest_of_haystack' => aux(x, rest_of_haystack', acc @ [head])
-                       in
-                         aux(head, rest_of_haystack, [])
-                       end
+  let
+    fun aux (haystack_head, haystack_tail, acc) =
+      if same_string(haystack_head, needle)
+      then SOME (acc @ haystack_tail)
+      else
+        case haystack_tail of
+          [] => NONE
+        | haystack_neck::haystack_body => aux(haystack_neck, haystack_body, acc @ [haystack_head])
+  in
+    case haystack of
+      [] => NONE
+    | haystack_head::haystack_tail => aux(haystack_head, haystack_tail, [])
+  end
 
 (* you may assume that Num is always used with values 2, 3, ..., 10
    though it will not really come up *)
 datatype suit = Clubs | Diamonds | Hearts | Spades
-datatype rank = Jack | Queen | King | Ace | Num of int 
+datatype rank = Jack | Queen | King | Ace | Num of int
 type card = suit * rank
 
 datatype color = Red | Black
-datatype move = Discard of card | Draw 
+datatype move = Discard of card | Draw
 
 exception IllegalMove
 
