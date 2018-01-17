@@ -47,7 +47,7 @@ fun similar_names (substitutions, {first=first, last=last, middle=middle}) =
     val substitue_names = get_substitutions2(substitutions, first)
     fun form_full_names (substitue_names, acc) =
       case substitue_names of
-        [] => acc 
+        [] => acc
       | hd::substitue_names' => form_full_names(substitue_names', acc @ [{first=hd, last=last, middle=middle}])
   in
     form_full_names (substitue_names, [{first=first, last=last, middle=middle}])
@@ -71,3 +71,9 @@ fun card_color (suit, _) =
     Clubs => Black
   | Spades => Black
   | _ => Red
+
+fun card_value (_, rank) =
+  case rank of
+    Num value => value
+  | Ace => 11
+  | _ => 10
