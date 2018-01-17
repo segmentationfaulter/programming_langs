@@ -7,6 +7,7 @@ use "hw2.sml";
 
 val all_except_option_test1 = all_except_option ("string", ["string"]) = SOME []
 val all_except_option_test2 = all_except_option ("cat", ["apple", "boat", "cat", "dog"]) = SOME ["apple", "boat", "dog"]
+val all_except_option_test3 = all_except_option ("string", []) = NONE
 
 (*
 val test2 = get_substitutions1 ([["foo"],["there"]], "foo") = []
