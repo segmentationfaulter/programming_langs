@@ -34,9 +34,9 @@ fun get_substitutions2 (substitutions, s) =
   let
     fun aux (substitutions, acc) =
       case substitutions of
-        [] => acc 
+        [] => acc
       | head_list::substitutions' => case all_except_option(s, head_list) of
-                                       NONE => aux(substitutions', acc) 
+                                       NONE => aux(substitutions', acc)
                                      | SOME string_list => aux(substitutions', acc @ string_list)
   in
     aux(substitutions, [])
