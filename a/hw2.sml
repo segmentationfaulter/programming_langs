@@ -30,6 +30,18 @@ fun get_substitutions1 (substitutions, s) =
                                    NONE => get_substitutions1(substitutions', s)
                                  | SOME string_list => string_list @ get_substitutions1(substitutions', s)
 
+fun get_substitutions2 (substitutions, s) =
+  let
+    fun aux (substitutions, acc) =
+      case substitutions of
+        [] => acc 
+      | head_list::substitutions' => case all_except_option(s, head_list) of
+                                       NONE => aux(substitutions', acc) 
+                                     | SOME string_list => aux(substitutions', acc @ string_list)
+  in
+    aux(substitutions, [])
+  end
+
 (* you may assume that Num is always used with values 2, 3, ..., 10
    though it will not really come up *)
 datatype suit = Clubs | Diamonds | Hearts | Spades

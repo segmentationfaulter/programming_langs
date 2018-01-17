@@ -15,9 +15,12 @@ val get_substitutions1_test2 = get_substitutions1 ([["Fred", "Fredrick"],["Jeff"
 val get_substitutions1_test3 = get_substitutions1 ([["Fred", "Fredrick"],["Elizabeth", "Betty"], ["Freddie", "Fred", "F"]], "Fred") = ["Fredrick", "Freddie", "F"]
 val get_substitutions1_test4 = get_substitutions1 ([], "foo") = []
 
-(*
-val test3 = get_substitutions2 ([["foo"],["there"]], "foo") = []
+val get_substitutions2_test1 = get_substitutions2 ([["foo"],["there"]], "foo") = []
+val get_substitutions2_test2 = get_substitutions2 ([["Fred", "Fredrick"],["Jeff", "Jeffrey"], ["Geoff", "Jeff", "Jeffrey"]], "Jeff") = ["Jeffrey", "Geoff", "Jeffrey"]
+val get_substitutions2_test3 = get_substitutions2 ([["Fred", "Fredrick"],["Elizabeth", "Betty"], ["Freddie", "Fred", "F"]], "Fred") = ["Fredrick", "Freddie", "F"]
+val get_substitutions2_test4 = get_substitutions2 ([], "foo") = []
 
+(*
 val test4 = similar_names ([["Fred","Fredrick"],["Elizabeth","Betty"],["Freddie","Fred","F"]], {first="Fred", middle="W", last="Smith"}) =
 	    [{first="Fred", last="Smith", middle="W"}, {first="Fredrick", last="Smith", middle="W"},
 	     {first="Freddie", last="Smith", middle="W"}, {first="F", last="Smith", middle="W"}]
