@@ -119,3 +119,19 @@ fun score (cards, goal) =
     then preliminary_score div 2
     else preliminary_score
   end
+
+fun officiate (cards, moves, goal) =
+  let
+    fun aux (cards, moves, held_cards) =
+      case moves of
+        [] => score(held_cards, goal)
+      | Draw::moves' => (case cards of
+                          [] => score(held_cards, goal)
+                        | head_cards::cards' => if (sum_cards(head_cards::held_cards) > goal)
+                                                then score(head_cards::held_cards, goal)
+                                                else aux(cards', moves', head_cards::held_cards))
+      | Discard (card_to_discard)::moves' => aux(cards, moves', remove_card(held_cards, card_to_discard, IllegalMove))
+  in
+    aux (cards, moves, [])
+  end
+
