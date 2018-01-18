@@ -48,10 +48,12 @@ val sum_cards_test2 = sum_cards [] = 0
 val sum_cards_test3 = sum_cards [(Clubs, Num 5),(Clubs, King)] = 15 
 val sum_cards_test4 = sum_cards [(Clubs, Num 5),(Clubs, King), (Hearts, Jack), (Spades, Ace), (Spades, Num 2)] = 38 
 
+val score_test1 = score ([(Hearts, Num 2),(Clubs, Num 4)],10) = 4
+val score_test2 = score ([(Hearts, Num 2),(Clubs, Num 4)],5) = 3
+val score_test3 = score ([(Hearts, Num 2),(Diamonds, Num 4), (Hearts, Ace)],15) = 3
 (*
 
 
-val test10 = score ([(Hearts, Num 2),(Clubs, Num 4)],10) = 4
 
 val test11 = officiate ([(Hearts, Num 2),(Clubs, Num 4)],[Draw], 15) = 6
 
