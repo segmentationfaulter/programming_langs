@@ -27,10 +27,11 @@ val longest_capitalized_test2 = longest_capitalized ["Saqib", "Hafeez", "mariamS
 
 val rev_string_test1 = rev_string "abc" = "cba"
 val rev_string_test2 = rev_string "tibit" = "tibit"
+
+val first_answer_test1 = first_answer (fn x => if x > 3 then SOME x else NONE) [1,2,3,4,5] = 4
 (*
 
 
-val test7 = first_answer (fn x => if x > 3 then SOME x else NONE) [1,2,3,4,5] = 4
 
 val test8 = all_answers (fn x => if x = 1 then SOME [x] else NONE) [2,3,4,5,6,7] = NONE
 

@@ -60,3 +60,10 @@ val longest_string4 = longest_string_helper (fn (x, y) => x >= y)
 val longest_capitalized = (longest_string1 o only_capitals)
 
 val rev_string = (String.implode o List.rev o String.explode)
+
+fun first_answer f elements =
+  case elements of
+    [] => raise NoAnswer
+  | hd::elements' => case (f hd) of
+                       NONE => first_answer f elements'
+                     | SOME v => v
