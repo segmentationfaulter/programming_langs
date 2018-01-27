@@ -17,14 +17,14 @@ val longest_string2_test1 = longest_string2 ["apple", "saqib"] = "saqib"
 val longest_string2_test2 = longest_string2 ["apple", "saqib", "eleven", "asdfgh"] = "asdfgh"
 
 val longest_string3_test1 = longest_string3 ["A", "apple", "cat", "dog"] = "apple"
+val longest_string3_test2 = longest_string3 ["A","bc","C"] = "bc"
+
 val longest_string4_test1 = longest_string4 ["apple", "saqib", "eleven", "asdfgh"] = "asdfgh"
+val longest_string4_test2 = longest_string4 ["A","B","C"] = "C"
+
+val longest_capitalized_test1 = longest_capitalized ["A","bc","C"] = "A"
+val longest_capitalized_test2 = longest_capitalized ["Saqib", "Hafeez", "mariamSaddiqua", "rehanaKausar"] = "Hafeez"
 (*
-
-val test4a = longest_string3 ["A","bc","C"] = "bc"
-
-val test4b = longest_string4 ["A","B","C"] = "C"
-
-val test5 = longest_capitalized ["A","bc","C"] = "A"
 
 val test6 = rev_string "abc" = "cba"
 
