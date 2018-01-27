@@ -8,10 +8,14 @@ use "hw3.sml";
 val only_capitals_test1 = only_capitals ["A","B","C"] = ["A","B","C"]
 val only_capitals_test2 = only_capitals ["Apple", "boat", "cat", "Dog"] = ["Apple", "Dog"]
 
-(*
-val test2 = longest_string1 ["A","bc","C"] = "bc"
+val longest_string1_test1 = longest_string1 ["A","bc","C"] = "bc"
+val longest_string1_test2 = longest_string1 ["A", "apple", "cat", "dog"] = "apple"
+val longest_string1_test3 = longest_string1 [] = ""
+val longest_string1_test4 = longest_string1 ["apple", "saqib"] = "apple"
 
-val test3 = longest_string2 ["A","bc","C"] = "bc"
+val longest_string2_test1 = longest_string2 ["apple", "saqib"] = "saqib"
+val longest_string2_test2 = longest_string2 ["apple", "saqib", "eleven", "asdfgh"] = "asdfgh"
+(*
 
 val test4a = longest_string3 ["A","bc","C"] = "bc"
 
