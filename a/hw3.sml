@@ -67,3 +67,10 @@ fun first_answer f elements =
   | hd::elements' => case (f hd) of
                        NONE => first_answer f elements'
                      | SOME v => v
+
+fun all_answers f elements =
+  case elements of
+    [] => SOME []
+  | hd::elements' => case (f hd) of
+                       NONE => NONE
+                     | SOME lst => SOME (lst @ valOf(all_answers f elements'))
