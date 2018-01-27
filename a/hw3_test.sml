@@ -15,6 +15,9 @@ val longest_string1_test4 = longest_string1 ["apple", "saqib"] = "apple"
 
 val longest_string2_test1 = longest_string2 ["apple", "saqib"] = "saqib"
 val longest_string2_test2 = longest_string2 ["apple", "saqib", "eleven", "asdfgh"] = "asdfgh"
+
+val longest_string3_test1 = longest_string3 ["A", "apple", "cat", "dog"] = "apple"
+val longest_string4_test1 = longest_string4 ["apple", "saqib", "eleven", "asdfgh"] = "asdfgh"
 (*
 
 val test4a = longest_string3 ["A","bc","C"] = "bc"

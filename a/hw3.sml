@@ -47,4 +47,12 @@ fun longest_string1 strings =
 fun longest_string2 strings =
   case strings of
     [] => ""
-  | _ => List.foldl (fn (str, acc) => if String.size(str) >= String.size(acc) then str else acc) "" strings
+  | _ => List.foldr (fn (str, acc) => if String.size(str) > String.size(acc) then str else acc) "" strings
+
+fun longest_string_helper predicate strings =
+  case strings of
+    [] => ""
+  | _ => List.foldl (fn (str, acc) => if predicate(String.size(str), String.size(acc)) then str else acc) "" strings
+
+val longest_string3 = longest_string_helper (fn (x, y) => x > y)
+val longest_string4 = longest_string_helper (fn (x, y) => x >= y)
