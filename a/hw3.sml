@@ -74,3 +74,10 @@ fun all_answers f elements =
   | hd::elements' => case (f hd) of
                        NONE => NONE
                      | SOME lst => SOME (lst @ valOf(all_answers f elements'))
+
+val count_wildcards = g (fn () => 1) (fn (str) => 0)
+
+val count_wild_and_variable_lengths = g (fn () => 1) (fn (str) => String.size(str))
+
+fun count_some_var (str, pattern) =
+  g (fn () => 0) (fn (varStr) => if str = varStr then 1 else 0) pattern
