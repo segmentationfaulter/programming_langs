@@ -81,3 +81,20 @@ val count_wild_and_variable_lengths = g (fn () => 1) (fn (str) => String.size(st
 
 fun count_some_var (str, pattern) =
   g (fn () => 0) (fn (varStr) => if str = varStr then 1 else 0) pattern
+
+fun check_pat pattern =
+  let
+    fun get_variable_strings pattern =
+      case pattern of
+        Variable str => [str]
+      | TupleP ps => List.foldl (fn (p, acc) => acc @ get_variable_strings(p)) [] ps
+      | ConstructorP (_, p) => get_variable_strings p
+      | _ => []
+    fun duplicates_exist strings =
+      case strings of
+        [] => false
+      | str::[] => false
+      | str::strings' => (List.exists (fn (s) => if s = str then true else false) strings') orelse duplicates_exist strings'
+  in
+    not ((duplicates_exist o get_variable_strings) pattern)
+  end
