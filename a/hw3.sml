@@ -98,3 +98,27 @@ fun check_pat pattern =
   in
     not ((duplicates_exist o get_variable_strings) pattern)
   end
+
+fun match (value, pattern) =
+  case (value, pattern) of
+    (_, Wildcard) => SOME []
+  | (_, Variable str) => SOME [(str, value)]
+  | (Unit, UnitP) => SOME []
+  | (Const x, ConstP y) => if (x = y) then SOME [] else NONE
+  | (Tuple vals, TupleP ps) => (
+    if (length vals <> length ps)
+    then NONE
+    else all_answers (fn (v, p) => (
+      case match (v, p) of
+        NONE => NONE
+      | SOME lst => SOME lst
+    )) (ListPair.zip (vals, ps))
+  )
+  | (Constructor (str, valu), ConstructorP (strP, p)) => (
+    if (str <> strP)
+    then NONE
+    else if (isSome (match (valu, p)))
+    then match (valu, p)
+    else NONE
+  )
+  | (_, _) => NONE

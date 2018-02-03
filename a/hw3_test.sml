@@ -32,6 +32,11 @@ val first_answer_test1 = first_answer (fn x => if x > 3 then SOME x else NONE) [
 
 val all_answers_test1 = all_answers (fn x => if x = 1 then SOME [x] else NONE) [2,3,4,5,6,7] = NONE
 val all_answers_test2 = all_answers (fn x => SOME [x]) [2,3,4,5,6,7] = SOME [2, 3, 4, 5, 6, 7]
+val all_answers_test3 = all_answers (fn x => if (x mod 2 = 0) then SOME [x, x + 1] else NONE) [2, 4, 6] = SOME [2, 3, 4, 5, 6, 7]
+
+val zipped_list = ListPair.zip ([1, 2, 3], [4, 5, 6])
+
+val all_answers_test4 = all_answers (fn (x, y) => SOME [x + y]) zipped_list = SOME [5, 7, 9]
 
 val test9a = count_wildcards Wildcard = 1
 val test9a01 = count_wildcards (Variable "str") = 0
@@ -67,16 +72,15 @@ val test1009 = check_pat (ConstructorP("x", (TupleP [Wildcard, Variable "x", Con
 val test1010 = check_pat (ConstructorP("x", (ConstructorP("y", TupleP [Variable "x", Variable "y"])))) = true
 val test1011 = check_pat (ConstructorP("x", (ConstructorP("y", TupleP [Variable "x", Variable "x"])))) = false
 val test1012 = check_pat (TupleP [Wildcard, Variable "x", TupleP [Variable "y"]]) = true
-(*
-
-
-val test9b = count_wild_and_variable_lengths (Variable("a")) = 1
-
-val test9c = count_some_var ("x", Variable("x")) = 1
-
-val test10 = check_pat (Variable("x")) = true
 
 val test11 = match (Const(1), UnitP) = NONE
-
-val test12 = first_match Unit [UnitP] = SOME []
-*)
+val test1101 = match (Const(1), ConstP 1) = SOME []
+val test1102 = match (Const(1), Variable "s") = SOME [("s", Const(1))]
+val test1103 = match (Const(1), TupleP [Wildcard]) = NONE
+val test1104 = match (Const(1), TupleP [ConstP 1]) = NONE
+val test1105 = match (Tuple [Unit], TupleP [UnitP]) = SOME []
+val test1106 = match (Tuple [Tuple [Unit]], TupleP [TupleP[UnitP]]) = SOME []
+val test1107 = match (Tuple [Tuple [Unit]], TupleP [TupleP[UnitP, Variable "x"]]) = NONE
+val test1108 = match (Tuple [Const(1), Tuple [Unit]], TupleP [ConstP 1, TupleP[UnitP]]) = SOME []
+val test1109 = match (Tuple [Const(1), Tuple [Unit, Const(2)]], TupleP [ConstP 1, TupleP[UnitP, Variable("s")]]) = SOME [("s", Const(2))]
+val test1110 = match (Tuple [Const(1), Tuple [Unit, Const(2)]], TupleP [ConstP 2, TupleP[UnitP, Variable("s")]]) = NONE
