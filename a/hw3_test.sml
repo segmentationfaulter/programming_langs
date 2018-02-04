@@ -28,7 +28,11 @@ val longest_capitalized_test2 = longest_capitalized ["Saqib", "Hafeez", "mariamS
 val rev_string_test1 = rev_string "abc" = "cba"
 val rev_string_test2 = rev_string "tibit" = "tibit"
 
-val first_answer_test1 = first_answer (fn x => if x > 3 then SOME x else NONE) [1,2,3,4,5] = 4
+val test7 = first_answer (fn x => if x > 3 then SOME x else NONE) [1,2,3,4,5] = 4
+val test701 = first_answer (fn x => if x > 3 then SOME x else NONE) [4,2,3,5] = 4
+val test702 = (first_answer (fn x => if x > 3 then SOME x else NONE) [1,2,3] ; false) handle NoAnswer => true
+val test7022 = (first_answer (fn x => if x > 3 then SOME x else NONE) [1,2,3] ; false) handle OtherException => true
+val test703 = first_answer (fn x => if x > 3 then SOME x else NONE) [1,2,3,4,2] = 4
 
 val all_answers_test1 = all_answers (fn x => if x = 1 then SOME [x] else NONE) [2,3,4,5,6,7] = NONE
 val all_answers_test2 = all_answers (fn x => SOME [x]) [2,3,4,5,6,7] = SOME [2, 3, 4, 5, 6, 7]
@@ -84,3 +88,7 @@ val test1107 = match (Tuple [Tuple [Unit]], TupleP [TupleP[UnitP, Variable "x"]]
 val test1108 = match (Tuple [Const(1), Tuple [Unit]], TupleP [ConstP 1, TupleP[UnitP]]) = SOME []
 val test1109 = match (Tuple [Const(1), Tuple [Unit, Const(2)]], TupleP [ConstP 1, TupleP[UnitP, Variable("s")]]) = SOME [("s", Const(2))]
 val test1110 = match (Tuple [Const(1), Tuple [Unit, Const(2)]], TupleP [ConstP 2, TupleP[UnitP, Variable("s")]]) = NONE
+
+val test12 = first_match Unit [UnitP] = SOME []
+val test1201 = first_match Unit [Variable ("s")] = SOME [("s", Unit)]
+val test1202 = first_match (Tuple [Const(1), Tuple [Unit, Const(2)]]) [(TupleP [ConstP 1, TupleP[UnitP, Variable("s")]])] = SOME [("s", Const(2))]

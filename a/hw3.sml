@@ -122,3 +122,6 @@ fun match (value, pattern) =
     else NONE
   )
   | (_, _) => NONE
+
+fun first_match value ps =
+  (SOME (first_answer (fn (p) => match (value, p)) ps)) handle NoAnswer => NONE
