@@ -42,3 +42,10 @@
                   (lambda ()
                     (cons (if (= (remainder idx 2) 0) "dan.jpg" "dog.jpg") (aux (+ idx 1)))))])
     (aux 0)))
+
+(define (stream-add-zero s)
+  (let* ([stream-pair (s)]
+         [stream-element (car stream-pair)]
+         [stream-thunk (cdr stream-pair)])
+    (lambda ()
+      (cons (cons 0 stream-element) (stream-add-zero stream-thunk)))))
