@@ -11,3 +11,11 @@
 (define (string-append-map xs suffix)
   (map (λ (x)
          (string-append x suffix)) xs))
+
+(define (list-nth-mod xs n)
+  (cond
+    [(< n 0) (error "list-nth-mod: negative number")]
+    [(null? xs) (error "list-nth-mod: empty list")]
+    [#t (let* ([xs-length (length xs)]
+          [mod-ans (remainder n xs-length)])
+          (car (list-tail xs mod-ans)))]))
