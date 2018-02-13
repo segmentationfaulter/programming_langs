@@ -19,3 +19,20 @@
     [#t (let* ([xs-length (length xs)]
           [mod-ans (remainder n xs-length)])
           (car (list-tail xs mod-ans)))]))
+
+(define (stream-for-n-steps s n)
+  (let* ([thunk-result (s)]
+        [stream-elem (car thunk-result)]
+        [next-stream (cdr thunk-result)])
+    (if (= n 0)
+        null
+        (cons stream-elem (stream-for-n-steps next-stream (- n 1))))))
+
+(define (nats start-point)
+  (lambda () (cons start-point (nats (+ start-point 1)))))
+
+(define (funny-number-stream)
+  (letrec ([aux (lambda (start-point)
+               (cons (if (= (remainder start-point 5) 0) (- 0 start-point) start-point) (aux (+ start-point 1))))])
+    (aux 1)))
+                   
