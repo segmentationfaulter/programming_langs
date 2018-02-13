@@ -36,3 +36,9 @@
                   (lambda ()
                     (cons (if (= (remainder start 5) 0) (- 0 start) start) (aux (+ start 1)))))])
     (aux 1)))
+
+(define (dan-then-dog)
+  (letrec ([aux (lambda (idx)
+                  (lambda ()
+                    (cons (if (= (remainder idx 2) 0) "dan.jpg" "dog.jpg") (aux (+ idx 1)))))])
+    (aux 0)))
