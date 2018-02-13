@@ -32,7 +32,7 @@
   (lambda () (cons start-point (nats (+ start-point 1)))))
 
 (define (funny-number-stream)
-  (letrec ([aux (lambda (start-point)
-               (cons (if (= (remainder start-point 5) 0) (- 0 start-point) start-point) (aux (+ start-point 1))))])
+  (letrec ([aux (lambda (start)
+                  (lambda ()
+                    (cons (if (= (remainder start 5) 0) (- 0 start) start) (aux (+ start 1)))))])
     (aux 1)))
-                   
