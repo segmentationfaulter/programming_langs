@@ -49,3 +49,18 @@
          [stream-thunk (cdr stream-pair)])
     (lambda ()
       (cons (cons 0 stream-element) (stream-add-zero stream-thunk)))))
+
+(define (cycle-lists xs ys)
+  (letrec ([aux (lambda (n)
+                  (lambda ()
+                    (cons (cons (list-nth-mod xs n) (list-nth-mod ys n)) (aux (+ n 1)))))])
+    (aux 0)))
+
+(define (vector-assoc v vec)
+  (letrec ([aux (lambda (current-index)
+                  (if (>= current-index (vector-length vec))
+                      #f
+                      (let ([current-element (vector-ref vec current-index)])
+                        (cond [(not (pair? current-element)) (aux (+ current-index 1))]
+                              [#t (if (equal? (car current-element) v) current-element (aux (+ current-index 1)))]))))])
+    (aux 0)))
