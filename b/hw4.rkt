@@ -64,3 +64,19 @@
                         (cond [(not (pair? current-element)) (aux (+ current-index 1))]
                               [#t (if (equal? (car current-element) v) current-element (aux (+ current-index 1)))]))))])
     (aux 0)))
+
+(define (cached-assoc xs n)
+  (let ([cache (make-vector n #f)])
+    (lambda (v)
+      (let* ([cache-add-turn 0]
+             [next-cache-element (remainder cache-add-turn (vector-length cache))]
+             [add-to-cache (lambda (ans) (begin
+                                           (vector-set! cache next-cache-element (cons v ans))
+                                           (set! cache-add-turn (+ cache-add-turn 1))))]
+             [found-in-cache (vector-assoc v cache)]
+             [ans-from-cache (if found-in-cache (cdr (found-in-cache)) found-in-cache)])
+        (if ans-from-cache
+            ans-from-cache
+            (let* ([ans-organic (assoc v xs)])
+              (begin (add-to-cache ans-organic)
+                     ans-organic)))))))                              
