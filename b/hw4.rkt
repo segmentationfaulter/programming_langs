@@ -28,19 +28,14 @@
         null
         (cons stream-elem (stream-for-n-steps next-stream (- n 1))))))
 
-(define (nats start-point)
-  (lambda () (cons start-point (nats (+ start-point 1)))))
-
 (define (funny-number-stream)
-  (letrec ([aux (lambda (start)
-                  (lambda ()
-                    (cons (if (= (remainder start 5) 0) (- 0 start) start) (aux (+ start 1)))))])
+  (letrec ([aux (lambda (stream-element)
+                  (cons (if (= (remainder stream-element 5) 0) (- stream-element) stream-element) (lambda () (aux (+ stream-element 1)))))])
     (aux 1)))
 
 (define (dan-then-dog)
-  (letrec ([aux (lambda (idx)
-                  (lambda ()
-                    (cons (if (= (remainder idx 2) 0) "dan.jpg" "dog.jpg") (aux (+ idx 1)))))])
+  (letrec ([aux (lambda (index)
+                  (cons (if (= (remainder index 2) 0) "dan.jpg" "dog.jpg") (lambda () (aux (+ index 1)))))])
     (aux 0)))
 
 (define (stream-add-zero s)
