@@ -59,7 +59,36 @@
                        (int-num v2)))
                (error "MUPL addition applied to non-number")))]
         ;; CHANGE add more cases here
+        [(int? e) e]
+        [(aunit? e) e]
+        [(fun? e) (closure e env)]
+        [(apair? e)
+         (let ([v1 (eval-under-env (apair-e1 e) env)]
+               [v2 (eval-under-env (apair-e2 e) env)])
+           (apair v1 v2))]
+        [(fst? e) (let ([v (eval-under-env (fst-e e) env)])
+                    (if (apair? v)
+                        (eval-under-env (apair-e1 v) env)
+                        (error "MUPL fst applied to non-pair")))]
+        [(snd? e) (let ([v (eval-under-env (snd-e e) env)])
+                    (if (apair? v)
+                        (eval-under-env (apair-e2 v) env)
+                        (error "MUPL snd applied to non-pair")))]
+        [(ifgreater? e) (let ([v1 (eval-under-env (ifgreater-e1 e) env)]
+                              [v2 (eval-under-env (ifgreater-e2 e) env)])
+                          (if (and (int? v1)
+                                   (int? v2))
+                              (if (> (int-num v1) (int-num v2))
+                                  (eval-under-env (ifgreater-e3 e) env)
+                                  (eval-under-env (ifgreater-e4 e) env))
+                              (error "Comparing non-integer MUPL values")))]
+        [(mlet? e)
+         (let ([local-var-name (mlet-var e)]
+               [local-var-value (eval-under-env (mlet-e e) env)])
+           (eval-under-env (mlet-body e) (cons (cons local-var-name local-var-value) env)))]
         [#t (error (format "bad MUPL expression: ~v" e))]))
+
+(eval-under-env (mlet "two" (int 6) (add (var "two") (int 2))) null)
 
 ;; Do NOT change
 (define (eval-exp e)
