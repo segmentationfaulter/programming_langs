@@ -98,12 +98,13 @@
                (let* ([function-part (closure-fun funexp)]
                      [env-part (closure-env funexp)]
                      [function-name (fun-nameopt function-part)]
-                     [formal-arg (fun-formal function-part)])
-                 (eval-under-env (fun-body function-part) (cons (cons formal-arg actual-arg) env)))
+                     [formal-arg (fun-formal function-part)]
+                     [extended-env (if function-name
+                                       (append env (list (cons function-name funexp) (cons formal-arg actual-arg)))
+                                       (append env (list (cons formal-arg actual-arg))))])
+                 (eval-under-env (fun-body function-part) extended-env))
                (error "invoking non-function expression")))]
         [#t (error (format "bad MUPL expression: ~v" e))]))
-
-(eval-under-env (call (fun "foo" "two" (add (int 2) (var "two"))) (int 2)) null)
 
 ;; Do NOT change
 (define (eval-exp e)
