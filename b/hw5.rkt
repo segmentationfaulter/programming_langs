@@ -113,9 +113,7 @@
 ;; Problem 3
 
 (define (ifaunit e1 e2 e3)
-  (if (aunit? e1)
-      e2
-      e3))
+  (ifgreater (isaunit e1) (int 0) e2 e3))
 
 (define (mlet* lstlst e2) "CHANGE")
 
