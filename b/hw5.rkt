@@ -61,7 +61,7 @@
         ;; CHANGE add more cases here
         [(int? e) e]
         [(aunit? e) e]
-        [(fun? e) (closure e env)]
+        [(fun? e) (closure env e)]
         [(apair? e)
          (let ([v1 (eval-under-env (apair-e1 e) env)]
                [v2 (eval-under-env (apair-e2 e) env)])
@@ -86,9 +86,24 @@
          (let ([local-var-name (mlet-var e)]
                [local-var-value (eval-under-env (mlet-e e) env)])
            (eval-under-env (mlet-body e) (cons (cons local-var-name local-var-value) env)))]
+        [(isaunit? e)
+         (let ([v (eval-under-env (isaunit-e e) env)])
+           (if (aunit? v)
+               (int 1)
+               (int 0)))]
+        [(call? e)
+         (let ([funexp (eval-under-env (call-funexp e) env)]
+               [actual-arg (eval-under-env (call-actual e) env)])
+           (if (closure? funexp)
+               (let* ([function-part (closure-fun funexp)]
+                     [env-part (closure-env funexp)]
+                     [function-name (fun-nameopt function-part)]
+                     [formal-arg (fun-formal function-part)])
+                 (eval-under-env (fun-body function-part) (cons (cons formal-arg actual-arg) env)))
+               (error "invoking non-function expression")))]
         [#t (error (format "bad MUPL expression: ~v" e))]))
 
-(eval-under-env (mlet "two" (int 6) (add (var "two") (int 2))) null)
+(eval-under-env (call (fun "foo" "two" (add (int 2) (var "two"))) (int 2)) null)
 
 ;; Do NOT change
 (define (eval-exp e)
