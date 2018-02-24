@@ -120,11 +120,19 @@
       e
       (mlet (car (car lst)) (cdr (car lst)) (mlet* (cdr lst) e))))
 
-(define (ifeq e1 e2 e3 e4) "CHANGE")
+(define (ifeq e1 e2 e3 e4)
+  (mlet "_x" e1
+        (mlet "_y" e2
+              (ifgreater (var "_x") (var "_y") e4 (ifgreater (var "_y") (var "_x") e4 e3)))))
 
 ;; Problem 4
 
-(define mupl-map "CHANGE")
+(define mupl-map
+  (fun #f "f"
+       (fun "internal" "xs"
+            (ifaunit (var "xs")
+                     (var "xs")
+                     (apair (call (var "f") (fst (var "xs"))) (call (var "internal") (snd (var "xs"))))))))
 
 (define mupl-mapAddN 
   (mlet "map" mupl-map
