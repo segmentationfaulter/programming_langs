@@ -92,7 +92,7 @@
                (int 1)
                (int 0)))]
         [(call? e)
-         (let ([funexp (eval-under-env (call-funexp e) env)]
+         (let ([funexp (call-funexp e)]
                [actual-arg (eval-under-env (call-actual e) env)])
            (if (closure? funexp)
                (let* ([function-part (closure-fun funexp)]
@@ -109,6 +109,8 @@
 ;; Do NOT change
 (define (eval-exp e)
   (eval-under-env e null))
+
+(eval-exp (call (closure '() (fun #f "x" (add (var "x") (int 7)))) (int 1)))
         
 ;; Problem 3
 
@@ -129,10 +131,10 @@
 
 (define mupl-map
   (fun #f "f"
-       (fun "internal" "xs"
+       (fun "applicator" "xs"
             (ifaunit (var "xs")
                      (var "xs")
-                     (apair (call (var "f") (fst (var "xs"))) (call (var "internal") (snd (var "xs"))))))))
+                     (apair (call (var "f") (fst (var "xs"))) (call (var "applicator") (snd (var "xs"))))))))
 
 (define mupl-mapAddN 
   (mlet "map" mupl-map
