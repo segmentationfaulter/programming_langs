@@ -115,7 +115,10 @@
 (define (ifaunit e1 e2 e3)
   (ifgreater (isaunit e1) (int 0) e2 e3))
 
-(define (mlet* lstlst e2) "CHANGE")
+(define (mlet* lst e)
+  (if (null? lst)
+      e
+      (mlet (car (car lst)) (cdr (car lst)) (mlet* (cdr lst) e))))
 
 (define (ifeq e1 e2 e3 e4) "CHANGE")
 
