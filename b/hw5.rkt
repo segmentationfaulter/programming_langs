@@ -69,7 +69,7 @@
            (apair v1 v2))]
         [(fst? e) (let ([v (eval-under-env (fst-e e) env)])
                     (if (apair? v)
-                        (eval-under-env (apair-e1 v) env)
+                        (apair-e1 v)
                         (error "MUPL fst applied to non-pair")))]
         [(snd? e) (let ([v (eval-under-env (snd-e e) env)])
                     (if (apair? v)
@@ -101,8 +101,8 @@
                      [function-name (fun-nameopt function-part)]
                      [formal-arg (fun-formal function-part)]
                      [extended-env (if function-name
-                                       (append env (list (cons function-name funexp) (cons formal-arg actual-arg)))
-                                       (append env (list (cons formal-arg actual-arg))))])
+                                       (append env-part (list (cons function-name funexp) (cons formal-arg actual-arg)))
+                                       (append env-part (list (cons formal-arg actual-arg))))])
                  (eval-under-env (fun-body function-part) extended-env))
                (error "invoking non-function expression")))]
         [#t (error (format "bad MUPL expression: ~v" e))]))
@@ -132,7 +132,7 @@
   (fun #f "f"
        (fun "applicator" "xs"
             (ifaunit (var "xs")
-                     (var "xs")
+                     (aunit)
                      (apair (call (var "f") (fst (var "xs"))) (call (var "applicator") (snd (var "xs"))))))))
 
 (define mupl-mapAddN 
@@ -142,6 +142,8 @@
                   (call (call (var "map") (fun #f "x" (add (var "x") (var "i")))) (var "xs"))))))
 
 (eval-exp (call (call mupl-map (fun #f "x" (add (var "x") (int 7)))) (apair (int 1) (aunit))))
+;; (eval-exp (call (closure '() (fun #f "x" (add (var "x") (int 7)))) (int 1)))
+
 ;; Challenge Problem
 
 (struct fun-challenge (nameopt formal body freevars) #:transparent) ;; a recursive(?) 1-argument function
