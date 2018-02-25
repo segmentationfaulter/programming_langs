@@ -61,6 +61,7 @@
         ;; CHANGE add more cases here
         [(int? e) e]
         [(aunit? e) e]
+        [(closure? e) e]
         [(fun? e) (closure env e)]
         [(apair? e)
          (let ([v1 (eval-under-env (apair-e1 e) env)]
@@ -87,12 +88,12 @@
                [local-var-value (eval-under-env (mlet-e e) env)])
            (eval-under-env (mlet-body e) (cons (cons local-var-name local-var-value) env)))]
         [(isaunit? e)
-         (let ([v (eval-under-env (isaunit-e e) env)])
+         (let ([v (isaunit-e e)])
            (if (aunit? v)
                (int 1)
                (int 0)))]
         [(call? e)
-         (let ([funexp (call-funexp e)]
+         (let ([funexp (eval-under-env (call-funexp e) env)]
                [actual-arg (eval-under-env (call-actual e) env)])
            (if (closure? funexp)
                (let* ([function-part (closure-fun funexp)]
@@ -109,8 +110,6 @@
 ;; Do NOT change
 (define (eval-exp e)
   (eval-under-env e null))
-
-(eval-exp (call (closure '() (fun #f "x" (add (var "x") (int 7)))) (int 1)))
         
 ;; Problem 3
 
@@ -142,6 +141,7 @@
              (fun #f "xs"
                   (call (call (var "map") (fun #f "x" (add (var "x") (var "i")))) (var "xs"))))))
 
+(eval-exp (call (call mupl-map (fun #f "x" (add (var "x") (int 7)))) (apair (int 1) (aunit))))
 ;; Challenge Problem
 
 (struct fun-challenge (nameopt formal body freevars) #:transparent) ;; a recursive(?) 1-argument function
