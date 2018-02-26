@@ -86,9 +86,11 @@
         [(mlet? e)
          (let ([local-var-name (mlet-var e)]
                [local-var-value (eval-under-env (mlet-e e) env)])
-           (eval-under-env (mlet-body e) (cons (cons local-var-name local-var-value) env)))]
+           (if (string? local-var-name)
+               (eval-under-env (mlet-body e) (cons (cons local-var-name local-var-value) env))
+               (error "bad mupl var name")))]
         [(isaunit? e)
-         (let ([v (isaunit-e e)])
+         (let ([v (eval-under-env (isaunit-e e) env)])
            (if (aunit? v)
                (int 1)
                (int 0)))]
@@ -141,9 +143,6 @@
              (fun #f "xs"
                   (call (call (var "map") (fun #f "x" (add (var "x") (var "i")))) (var "xs"))))))
 
-(eval-exp (call (call mupl-map (fun #f "x" (add (var "x") (int 7)))) (apair (int 1) (aunit))))
-
-;; (eval-exp (call (closure '() (fun #f "x" (add (var "x") (int 7)))) (int 1)))
 
 ;; Challenge Problem
 
